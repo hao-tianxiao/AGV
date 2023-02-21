@@ -1,0 +1,31 @@
+相机启动
+/************/
+启动顺序
+1.启动roscore
+2.启动检测程序功能包rosrun /功能包/ video_detect.py
+3.启动相机 rosrun /功能包/   video_sub
+/************/
+
+
+/////在工作空间下打开一个终端 ,启动小车通讯功能
+sudo modprobe gs_usb
+123
+source devel/setup.bash
+rosrun scout_bringup bringup_can2usb.bash
+roslaunch scout_bringup scout_robot_base.launch 
+
+
+
+/////录制小车移动轨迹
+把之前的txt文件删掉 /home/lwh/Lpp_file/data/road_path.txt
+在新开一个终端，source devel/setup.bash
+rosrun path_record path_record_node
+
+
+
+////启动小车跟踪轨迹和避障功能
+在新开一个终端，source devel/setup.bash
+rosrun planning_control planning_control_node
+
+/****整体编译指令**/
+catkin_make -DPYTHON_EXECUTABLE=/usr/bin/python3 -DPYTHON_INCLUDE_DIR=/usr/include/python3.6 -DPYTHON_LIBRARY=/usr/lib/python3.6/config-3.6m-x86_64-linux-gnu/libpython3.6.so
